@@ -1,78 +1,63 @@
-
-
-import org.junit.jupiter.api.Test;
-
+import java.util.Set;
+import java.util.List;
 import java.util.Vector;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.HashSet;
 
 /**
- * Created by Marco on 5/22/2017.
+ * Write a description of class Project here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public class Project
 {
     private String name;
-    private Vector<Task> tasks;
-
+    private Set<Task> tasks; 
+    
     public Project() {
-        tasks = new Vector<Task>();
+        tasks = new HashSet<Task>();
     }
-
+    
     public Project(String name) {
         this.name = name;
-        tasks = new Vector<Task>();
+        tasks = new HashSet<Task>();
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void addTask(Task task) {
-        if (!tasks.contains(task)) {
+        //if (!tasks.contains(task)) {
             tasks.add(task);
-        }
+        //}
     }
-
+    
     public int calculateTimeToDelivery() {
         int maxTimeToComplete = 0;
         for (Task task: tasks) {
             int time = task.calculateTimeToComplete();
             if (time > maxTimeToComplete) {
                 maxTimeToComplete = time;
+                addTaskToCriticalPath(task);
             }
         }
         return maxTimeToComplete;
     }
-
-    public Task calculateMajorDeliveryTimeOfTwoTasks(Task firstTask, Task secondTask) {
-        if (firstTask.getTimeToComplete() > secondTask.getTimeToComplete()) {
-            return firstTask;
-        }
-
-        return secondTask;
-    }
-
-    @Test
-    public void projectCannotHaveDuplicatedTasks() {
-        Project project = new Project("Sample");
-        Task firstTask = new Task("t1", 5);
-
-        project.addTask(firstTask);
-        project.addTask(firstTask);
-
-        assertEquals(5, project.calculateTimeToDelivery());
-    }
-
-    @Test
-    public void tasksAreEqualIfTheyHaveTheSameNameAndTimeToComplete() {
-        Task task = new Task("t1", 5);
-        Task expected = new Task("t1", 5);
-
-        assertTrue(task.equals(expected));
-    }
-
+    
     public int countTasks() {
         return tasks.size();
+    }
+
+    public List<Task> addTaskToCriticalPath(Task task) {
+        List<Task> path = new Vector<Task>();
+        path.add(task);
+        return path;
+    }
+    
+    public Set<Task> calculateCriticalPath() {
+        List<Task> path = new Vector<Task>();
+        Set<Task> taskSize = tasks;
+        return taskSize;
     }
 }
